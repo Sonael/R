@@ -1,4 +1,4 @@
-#alterando o 4 elemento do vetor x para "união estável"
+#alterando o 4 elemento do fator x para "união estável"
 
 
 #criando um fator
