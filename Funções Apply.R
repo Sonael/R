@@ -70,4 +70,4 @@ aux <- c("Eu", "amo", "a rural")
 
 mapply(paste, aux, "**",sep="")
 
-mapply(rep,"Eu amo a rural",1:5)
+mapply(rep,"rural",5:1)
