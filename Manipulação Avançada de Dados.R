@@ -171,3 +171,75 @@ mtcars %>%
   group_by(vs,am) %>% 
   filter(cyl>4) %>% 
   summarise(media=mean(mpg),median(mpg))
+
+
+
+
+
+#pacote tidyr
+
+install.packages("tidyr")
+library(tidyr)
+
+
+#função gather
+
+USArrests$State <- rownames(USArrests)
+
+head(USArrests)
+
+df1 <- USArrests %>%
+  gather(key = "tipo_crime",value = "valor",-State)
+
+head(df1)
+
+
+
+#Função spread (é o inverso da função gather)
+
+df2 <- df1 %>%
+  spread(key = "tipo_crime",value = "valor")
+
+head(df2)
+
+
+
+#Use a função spread para decompor a variável spray em relação a count do dataset InsectSprays
+
+df <- InsectSprays %>%
+  group_by(spray) %>%
+  mutate(grouped_id = row_number())
+
+
+
+df <- df %>%
+  spread(key = "spray",value = "count")%>%
+  select(-grouped_id)
+
+
+df <- df %>%
+  gather(key = "spray", value = "valor")
+
+
+
+
+#Função unite
+
+df3 <- df2 %>%
+  unite(col = "Murder_Assault",
+        Murder,Assault,
+        sep = " - ")
+
+head(df3)
+
+
+
+#Função separate
+
+
+df4 <- df3%>%
+  separate(col = "Murder_Assault",
+           into = c("Murder","Assault"),
+           sep = " - ")
+
+head(df4)
