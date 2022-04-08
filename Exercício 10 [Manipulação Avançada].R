@@ -52,3 +52,19 @@ codigos <- read.csv(file = "673598238_T_ONTIME_REPORTING.csv",
                     na.strings = "",
                     quote = "\"",
                     sep = ",")
+
+combinado <- merge(x = atraso_voo,
+                   y= codigos,
+                   by.x = "Code",
+                   by.y = "OP_UNIQUE_CARRIER",
+                   all = T)
+
+
+head(combinado)
+combinado %>%
+  group_by(Description)%>%
+  summarise(nome = n(),
+            max = max(DEP_DELAY_NEW))
+  
+
+
