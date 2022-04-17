@@ -1,0 +1,53 @@
+---
+title: "Teste"
+author: "Sonael"
+date: "16/04/2022"
+output: html_document
+bibliography: C:\\Users\\sonae\\Documents\\R\\ref.bib
+---
+
+
+[Rural](www.ufrpe.br)
+
+# tabset {.tabset}
+
+**Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.**
+
+## Titulo 2
+
+*Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.*
+
+## Titulo 2
+`Lorem ipsum dolor sit amet, consectetur adipiscing elit`
+
+
+<!-- Chunks -->
+
+# Chunks
+```{r Aula, echo=TRUE}
+
+summary(cars)
+
+```
+
+
+<!-- Códigos in line -->
+
+### Código in Line
+Existem `r nrow(iris)` opções de Iris
+
+
+<!-- Equações -->
+
+### Equações
+
+um modelo de regressão linear simples: $Y= \beta_0 + \beta_1 x+ \epsilon $.
+
+
+### citações
+
+The economics of information security has recently become a thriving and fast-moving discipline. As distributed systems are assembled from machines belonging to principals with divergent interests, we find that incentives are becoming as important as technical design in achieving dependability. @anderson2006economics
+
+# Referências
+
+

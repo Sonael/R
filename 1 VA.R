@@ -210,11 +210,15 @@ casosCompletos <- function(df, linhas=NA)
 {
   
   if(!is.na(linhas))
-    df <- df %>% slice(linhas)
+    df <- df %>% slice(c(linhas))
   return(count(df[complete.cases(df),]))
 }
 
 
-casosCompletos(df = airquality, linhas = 1:10)
 
+aux<-read.csv("tb.csv")
 
+aux1 <- aux %>% slice(1589:2564)
+2564-1589
+
+casosCompletos(aux)
