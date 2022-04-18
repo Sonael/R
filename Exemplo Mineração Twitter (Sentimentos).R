@@ -3,13 +3,13 @@ library(twitteR)
 library(tm)
 library(syuzhet)
 
-consumer_key <- ''
+consumer_key <- 'UHofBVArdC2gfi8somGlqLpEJ'
 
-consumer_secret <- ''
+consumer_secret <- 'jeGKAiSfkWP5uejxR2elF12qYtKoU5RdCDjMdcUE3vFLDw7R02'
 
-access_token <- ''
+access_token <- '701928852105392130-CEzsgpEPL4HUEr6Xn69sFbwHvLG0CCS'
 
-access_secret <- ''
+access_secret <- 'eZXiGLQ4sC1KpgNSa0dB1Oy9ZZeskgvIqgjEg3oCxuZsH'
 
 setup_twitter_oauth(consumer_key, consumer_secret,
                     access_token, access_secret)

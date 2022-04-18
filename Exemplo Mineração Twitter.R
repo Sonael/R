@@ -23,6 +23,7 @@ setup_twitter_oauth(consumer_key, consumer_secret,
 tweets <- searchTwitter("Stf",n = 100, lang = 'pt')
 
 
+
 #convertendo os twittes para o formato de DF
 
 tweets <- twListToDF(tweets)

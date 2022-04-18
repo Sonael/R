@@ -1,0 +1,718 @@
+---
+title: "Exercício 11"
+author: "Sonael"
+date: "18/04/2022"
+output: html_document
+bibliography: C:\\Users\\sonae\\Documents\\R\\ref.bib
+---
+
+
+
+# **Formato do Relatório** {.tabset}
+
+1) *Nuvem de palavra do discurso “Eu tenho um sonho” de Martin Luther King Jr. Também plote as palavras mais frequentes.*
+
+2) *Nuvem de palavra a partir dos twitters sobre "Brasil". Também faça uma análise de sentimentos com relação a esses twitters coletados.*
+
+3) *5 equações complexas usando Latex.*
+
+4) *2 Figuras relacionadas a ciência de dados e 2 tabelas (dica:  use datatable() do pacote DT).*
+
+5) *5 referências usando o BibTex.*
+
+**Todos esses itens devem ser colocados em ABAS (ou SEÇÕES) específicas. Também apresente o detalhadamente dos itens 1 e 2. Ou seja, inclua o código, os gráficos e as explicações para os resultados obtidos. Por fim, os itens 3), 4) e 5) ficam ao critério do aluno selecionar as equações, as imagens, as tabelas e as referências que desejar.**
+
+**Note que cada item não realizado (ou parcialmente) será decrementa 20% da nota da atividade. Além disso, relatórios desorganizados não serão pontuados.**
+
+---
+
+&nbsp;
+
+## Eu tenho um sonho
+
+### **Instalando Pacotes necessários**
+
+*Pacote "tm" para processamento de textos: *
+
+
+`install.packages("tm")` 
+
+
+`library(tm)`
+
+---
+
+*Pacote "wordcloud" para a nuvem de palavras: *
+
+`install.packages("wordcloud")`
+
+`library(wordcloud)`
+
+---
+
+### **Adquirindo o Discurso eu tenho um sonho**
+
+*Usar o link [Eu tenho um sonho](http://www.dhnet.org.br/desejos/sonhos/dream.htm) para obter o discurso e adcionar ele a variável `Martin`*.
+
+```{r echo=TRUE}
+Martin <- "'Eu estou contente em unir-me com vocês no dia que entrará para a história como a maior demonstração pela liberdade na história de nossa nação.
+
+Cem anos atrás, um grande americano, na qual estamos sob sua simbólica sombra, assinou a Proclamação de Emancipação. Esse importante decreto veio como um grande farol de esperança para milhões de escravos negros que tinham murchados nas chamas da injustiça. Ele veio como uma alvorada para terminar a longa noite de seus cativeiros.
+Mas cem anos depois, o Negro ainda não é livre.
+Cem anos depois, a vida do Negro ainda é tristemente inválida pelas algemas da segregação e as cadeias de discriminação.
+Cem anos depois, o Negro vive em uma ilha só de pobreza no meio de um vasto oceano de prosperidade material. Cem anos depois, o Negro ainda adoece nos cantos da sociedade americana e se encontram exilados em sua própria terra. Assim, nós viemos aqui hoje para dramatizar sua vergonhosa condição.
+
+De certo modo, nós viemos à capital de nossa nação para trocar um cheque. Quando os arquitetos de nossa república escreveram as magníficas palavras da Constituição e a Declaração da Independência, eles estavam assinando uma nota promissória para a qual todo americano seria seu herdeiro. Esta nota era uma promessa que todos os homens, sim, os homens negros, como também os homens brancos, teriam garantidos os direitos inalienáveis de vida, liberdade e a busca da felicidade. Hoje é óbvio que aquela América não apresentou esta nota promissória. Em vez de honrar esta obrigação sagrada, a América deu para o povo negro um cheque sem fundo, um cheque que voltou marcado com 'fundos insuficientes'.
+
+Mas nós nos recusamos a acreditar que o banco da justiça é falível. Nós nos recusamos a acreditar que há capitais insuficientes de oportunidade nesta nação. Assim nós viemos trocar este cheque, um cheque que nos dará o direito de reclamar as riquezas de liberdade e a segurança da justiça.
+
+Nós também viemos para recordar à América dessa cruel urgência. Este não é o momento para descansar no luxo refrescante ou tomar o remédio tranqüilizante do gradualismo.
+Agora é o tempo para transformar em realidade as promessas de democracia.
+Agora é o tempo para subir do vale das trevas da segregação ao caminho iluminado pelo sol da justiça racial.
+Agora é o tempo para erguer nossa nação das areias movediças da injustiça racial para a pedra sólida da fraternidade. Agora é o tempo para fazer da justiça uma realidade para todos os filhos de Deus.
+
+Seria fatal para a nação negligenciar a urgência desse momento. Este verão sufocante do legítimo descontentamento dos Negros não passará até termos um renovador outono de liberdade e igualdade. Este ano de 1963 não é um fim, mas um começo. Esses que esperam que o Negro agora estará contente, terão um violento despertar se a nação votar aos negócios de sempre
+
+. Mas há algo que eu tenho que dizer ao meu povo que se dirige ao portal que conduz ao palácio da justiça. No processo de conquistar nosso legítimo direito, nós não devemos ser culpados de ações de injustiças. Não vamos satisfazer nossa sede de liberdade bebendo da xícara da amargura e do ódio. Nós sempre temos que conduzir nossa luta num alto nível de dignidade e disciplina. Nós não devemos permitir que nosso criativo protesto se degenere em violência física. Novamente e novamente nós temos que subir às majestosas alturas da reunião da força física com a força de alma. Nossa nova e maravilhosa combatividade mostrou à comunidade negra que não devemos ter uma desconfiança para com todas as pessoas brancas, para muitos de nossos irmãos brancos, como comprovamos pela presença deles aqui hoje, vieram entender que o destino deles é amarrado ao nosso destino. Eles vieram perceber que a liberdade deles é ligada indissoluvelmente a nossa liberdade. Nós não podemos caminhar só.
+
+E como nós caminhamos, nós temos que fazer a promessa que nós sempre marcharemos à frente. Nós não podemos retroceder. Há esses que estão perguntando para os devotos dos direitos civis, 'Quando vocês estarão satisfeitos?'
+
+Nós nunca estaremos satisfeitos enquanto o Negro for vítima dos horrores indizíveis da brutalidade policial. Nós nunca estaremos satisfeitos enquanto nossos corpos, pesados com a fadiga da viagem, não poderem ter hospedagem nos motéis das estradas e os hotéis das cidades. Nós não estaremos satisfeitos enquanto um Negro não puder votar no Mississipi e um Negro em Nova Iorque acreditar que ele não tem motivo para votar. Não, não, nós não estamos satisfeitos e nós não estaremos satisfeitos até que a justiça e a retidão rolem abaixo como águas de uma poderosa correnteza.
+
+Eu não esqueci que alguns de você vieram até aqui após grandes testes e sofrimentos. Alguns de você vieram recentemente de celas estreitas das prisões. Alguns de vocês vieram de áreas onde sua busca pela liberdade lhe deixaram marcas pelas tempestades das perseguições e pelos ventos de brutalidade policial. Você são o veteranos do sofrimento. Continuem trabalhando com a fé que sofrimento imerecido é redentor. Voltem para o Mississippi, voltem para o Alabama, voltem para a Carolina do Sul, voltem para a Geórgia, voltem para Louisiana, voltem para as ruas sujas e guetos de nossas cidades do norte, sabendo que de alguma maneira esta situação pode e será mudada. Não se deixe caiar no vale de desespero.
+
+Eu digo a você hoje, meus amigos, que embora nós enfrentemos as dificuldades de hoje e amanhã. Eu ainda tenho um sonho. É um sonho profundamente enraizado no sonho americano.
+
+Eu tenho um sonho que um dia esta nação se levantará e viverá o verdadeiro significado de sua crença - nós celebraremos estas verdades e elas serão claras para todos, que os homens são criados iguais.
+
+Eu tenho um sonho que um dia nas colinas vermelhas da Geórgia os filhos dos descendentes de escravos e os filhos dos desdentes dos donos de escravos poderão se sentar junto à mesa da fraternidade.
+
+Eu tenho um sonho que um dia, até mesmo no estado de Mississippi, um estado que transpira com o calor da injustiça, que transpira com o calor de opressão, será transformado em um oásis de liberdade e justiça.
+
+Eu tenho um sonho que minhas quatro pequenas crianças vão um dia viver em uma nação onde elas não serão julgadas pela cor da pele, mas pelo conteúdo de seu caráter. Eu tenho um sonho hoje!
+  
+  Eu tenho um sonho que um dia, no Alabama, com seus racistas malignos, com seu governador que tem os lábios gotejando palavras de intervenção e negação; nesse justo dia no Alabama meninos negros e meninas negras poderão unir as mãos com meninos brancos e meninas brancas como irmãs e irmãos. Eu tenho um sonho hoje!
+  
+  Eu tenho um sonho que um dia todo vale será exaltado, e todas as colinas e montanhas virão abaixo, os lugares ásperos serão aplainados e os lugares tortuosos serão endireitados e a glória do Senhor será revelada e toda a carne estará junta.
+
+Esta é nossa esperança. Esta é a fé com que regressarei para o Sul. Com esta fé nós poderemos cortar da montanha do desespero uma pedra de esperança. Com esta fé nós poderemos transformar as discórdias estridentes de nossa nação em uma bela sinfonia de fraternidade. Com esta fé nós poderemos trabalhar juntos, rezar juntos, lutar juntos, para ir encarcerar juntos, defender liberdade juntos, e quem sabe nós seremos um dia livre. Este será o dia, este será o dia quando todas as crianças de Deus poderão cantar com um novo significado.
+
+'Meu país, doce terra de liberdade, eu te canto.
+
+Terra onde meus pais morreram, terra do orgulho dos peregrinos,
+
+De qualquer lado da montanha, ouço o sino da liberdade!'
+
+E se a América é uma grande nação, isto tem que se tornar verdadeiro.
+
+E assim ouvirei o sino da liberdade no extraordinário topo da montanha de New Hampshire.
+
+Ouvirei o sino da liberdade nas poderosas montanhas poderosas de Nova York.
+
+Ouvirei o sino da liberdade nos engrandecidos Alleghenies da Pennsylvania.
+
+Ouvirei o sino da liberdade nas montanhas cobertas de neve Rockies do Colorado.
+
+Ouvirei o sino da liberdade nas ladeiras curvas da Califórnia.
+
+Mas não é só isso. Ouvirei o sino da liberdade na Montanha de Pedra da Geórgia.
+
+Ouvirei o sino da liberdade na Montanha de Vigilância do Tennessee.
+
+Ouvirei o sino da liberdade em todas as colinas do Mississipi.
+
+Em todas as montanhas, ouviu o sino da liberdade.
+
+E quando isto acontecer, quando nós permitimos o sino da liberdade soar, quando nós deixarmos ele soar em toda moradia e todo vilarejo, em todo estado e em toda cidade, nós poderemos acelerar aquele dia quando todas as crianças de Deus, homens pretos e homens brancos, judeus e gentios, protestantes e católicos, poderão unir mãos e cantar nas palavras do velho spiritual negro:
+  
+  'Livre afinal, livre afinal.
+
+Agradeço ao Deus todo-poderoso, nós somos livres afinal.'"
+```
+
+---
+
+### **Coverter dados para o formato corpus.**
+
+*Para processar o texto usando o pacote tm, é necessário coverter esses dados em um formato chamado corpus, que pode ser processado pelo formato tm: *
+
+`VS <- VectorSource(Martin)`
+
+`corpus <- Corpus(VS)`
+
+
+---
+
+### **Fazer uma limpeza no texto.**
+
+*Colocar tudo em minusculo: *
+`corpus <- tm_map(corpus, content_transformer(tolower))`
+
+
+*Remover toda a pontuação: *
+`corpus <- tm_map(corpus, removePunctuation)`
+
+
+*Remover espaços extras em branco: *
+`corpus <- tm_map(corpus, stripWhitespace)`
+
+*Remover números: *
+`corpus <- tm_map(corpus, removeNumbers)`
+
+
+*Remover palavras ruido: *
+`corpus <- tm_map(corpus, removeWords, stopwords("portuguese"))`
+
+---
+
+### **Tranformar em matriz**
+
+*Tranformar em matriz para facilitar o manuseamento do dado: *
+
+`tdm <- as.matrix(TermDocumentMatrix(corpus))`
+
+---
+
+### **Fornecer as sequências**
+
+*Fornecer as sequências ordenadas de cada palavra: *
+
+`fre <- sort(rowSums(tdm),decreasing = T)`
+
+---
+
+### **Subconjunto dos dados**
+
+*Escolhendo o subconjunto dos dados: *
+
+`aux <- subset(fre, fre>2)` 
+
+---
+
+### **Gráfico de barras**
+
+*Plotar o gráfico de barras dos termos mais frequentes*
+
+```{r include=FALSE}
+library(tm)
+library(wordcloud)
+
+Martin <- "'Eu estou contente em unir-me com vocês no dia que entrará para a história como a maior demonstração pela liberdade na história de nossa nação.
+
+Cem anos atrás, um grande americano, na qual estamos sob sua simbólica sombra, assinou a Proclamação de Emancipação. Esse importante decreto veio como um grande farol de esperança para milhões de escravos negros que tinham murchados nas chamas da injustiça. Ele veio como uma alvorada para terminar a longa noite de seus cativeiros.
+Mas cem anos depois, o Negro ainda não é livre.
+Cem anos depois, a vida do Negro ainda é tristemente inválida pelas algemas da segregação e as cadeias de discriminação.
+Cem anos depois, o Negro vive em uma ilha só de pobreza no meio de um vasto oceano de prosperidade material. Cem anos depois, o Negro ainda adoece nos cantos da sociedade americana e se encontram exilados em sua própria terra. Assim, nós viemos aqui hoje para dramatizar sua vergonhosa condição.
+
+De certo modo, nós viemos à capital de nossa nação para trocar um cheque. Quando os arquitetos de nossa república escreveram as magníficas palavras da Constituição e a Declaração da Independência, eles estavam assinando uma nota promissória para a qual todo americano seria seu herdeiro. Esta nota era uma promessa que todos os homens, sim, os homens negros, como também os homens brancos, teriam garantidos os direitos inalienáveis de vida, liberdade e a busca da felicidade. Hoje é óbvio que aquela América não apresentou esta nota promissória. Em vez de honrar esta obrigação sagrada, a América deu para o povo negro um cheque sem fundo, um cheque que voltou marcado com 'fundos insuficientes'.
+
+Mas nós nos recusamos a acreditar que o banco da justiça é falível. Nós nos recusamos a acreditar que há capitais insuficientes de oportunidade nesta nação. Assim nós viemos trocar este cheque, um cheque que nos dará o direito de reclamar as riquezas de liberdade e a segurança da justiça.
+
+Nós também viemos para recordar à América dessa cruel urgência. Este não é o momento para descansar no luxo refrescante ou tomar o remédio tranqüilizante do gradualismo.
+Agora é o tempo para transformar em realidade as promessas de democracia.
+Agora é o tempo para subir do vale das trevas da segregação ao caminho iluminado pelo sol da justiça racial.
+Agora é o tempo para erguer nossa nação das areias movediças da injustiça racial para a pedra sólida da fraternidade. Agora é o tempo para fazer da justiça uma realidade para todos os filhos de Deus.
+
+Seria fatal para a nação negligenciar a urgência desse momento. Este verão sufocante do legítimo descontentamento dos Negros não passará até termos um renovador outono de liberdade e igualdade. Este ano de 1963 não é um fim, mas um começo. Esses que esperam que o Negro agora estará contente, terão um violento despertar se a nação votar aos negócios de sempre
+
+. Mas há algo que eu tenho que dizer ao meu povo que se dirige ao portal que conduz ao palácio da justiça. No processo de conquistar nosso legítimo direito, nós não devemos ser culpados de ações de injustiças. Não vamos satisfazer nossa sede de liberdade bebendo da xícara da amargura e do ódio. Nós sempre temos que conduzir nossa luta num alto nível de dignidade e disciplina. Nós não devemos permitir que nosso criativo protesto se degenere em violência física. Novamente e novamente nós temos que subir às majestosas alturas da reunião da força física com a força de alma. Nossa nova e maravilhosa combatividade mostrou à comunidade negra que não devemos ter uma desconfiança para com todas as pessoas brancas, para muitos de nossos irmãos brancos, como comprovamos pela presença deles aqui hoje, vieram entender que o destino deles é amarrado ao nosso destino. Eles vieram perceber que a liberdade deles é ligada indissoluvelmente a nossa liberdade. Nós não podemos caminhar só.
+
+E como nós caminhamos, nós temos que fazer a promessa que nós sempre marcharemos à frente. Nós não podemos retroceder. Há esses que estão perguntando para os devotos dos direitos civis, 'Quando vocês estarão satisfeitos?'
+
+Nós nunca estaremos satisfeitos enquanto o Negro for vítima dos horrores indizíveis da brutalidade policial. Nós nunca estaremos satisfeitos enquanto nossos corpos, pesados com a fadiga da viagem, não poderem ter hospedagem nos motéis das estradas e os hotéis das cidades. Nós não estaremos satisfeitos enquanto um Negro não puder votar no Mississipi e um Negro em Nova Iorque acreditar que ele não tem motivo para votar. Não, não, nós não estamos satisfeitos e nós não estaremos satisfeitos até que a justiça e a retidão rolem abaixo como águas de uma poderosa correnteza.
+
+Eu não esqueci que alguns de você vieram até aqui após grandes testes e sofrimentos. Alguns de você vieram recentemente de celas estreitas das prisões. Alguns de vocês vieram de áreas onde sua busca pela liberdade lhe deixaram marcas pelas tempestades das perseguições e pelos ventos de brutalidade policial. Você são o veteranos do sofrimento. Continuem trabalhando com a fé que sofrimento imerecido é redentor. Voltem para o Mississippi, voltem para o Alabama, voltem para a Carolina do Sul, voltem para a Geórgia, voltem para Louisiana, voltem para as ruas sujas e guetos de nossas cidades do norte, sabendo que de alguma maneira esta situação pode e será mudada. Não se deixe caiar no vale de desespero.
+
+Eu digo a você hoje, meus amigos, que embora nós enfrentemos as dificuldades de hoje e amanhã. Eu ainda tenho um sonho. É um sonho profundamente enraizado no sonho americano.
+
+Eu tenho um sonho que um dia esta nação se levantará e viverá o verdadeiro significado de sua crença - nós celebraremos estas verdades e elas serão claras para todos, que os homens são criados iguais.
+
+Eu tenho um sonho que um dia nas colinas vermelhas da Geórgia os filhos dos descendentes de escravos e os filhos dos desdentes dos donos de escravos poderão se sentar junto à mesa da fraternidade.
+
+Eu tenho um sonho que um dia, até mesmo no estado de Mississippi, um estado que transpira com o calor da injustiça, que transpira com o calor de opressão, será transformado em um oásis de liberdade e justiça.
+
+Eu tenho um sonho que minhas quatro pequenas crianças vão um dia viver em uma nação onde elas não serão julgadas pela cor da pele, mas pelo conteúdo de seu caráter. Eu tenho um sonho hoje!
+  
+  Eu tenho um sonho que um dia, no Alabama, com seus racistas malignos, com seu governador que tem os lábios gotejando palavras de intervenção e negação; nesse justo dia no Alabama meninos negros e meninas negras poderão unir as mãos com meninos brancos e meninas brancas como irmãs e irmãos. Eu tenho um sonho hoje!
+  
+  Eu tenho um sonho que um dia todo vale será exaltado, e todas as colinas e montanhas virão abaixo, os lugares ásperos serão aplainados e os lugares tortuosos serão endireitados e a glória do Senhor será revelada e toda a carne estará junta.
+
+Esta é nossa esperança. Esta é a fé com que regressarei para o Sul. Com esta fé nós poderemos cortar da montanha do desespero uma pedra de esperança. Com esta fé nós poderemos transformar as discórdias estridentes de nossa nação em uma bela sinfonia de fraternidade. Com esta fé nós poderemos trabalhar juntos, rezar juntos, lutar juntos, para ir encarcerar juntos, defender liberdade juntos, e quem sabe nós seremos um dia livre. Este será o dia, este será o dia quando todas as crianças de Deus poderão cantar com um novo significado.
+
+'Meu país, doce terra de liberdade, eu te canto.
+
+Terra onde meus pais morreram, terra do orgulho dos peregrinos,
+
+De qualquer lado da montanha, ouço o sino da liberdade!'
+
+E se a América é uma grande nação, isto tem que se tornar verdadeiro.
+
+E assim ouvirei o sino da liberdade no extraordinário topo da montanha de New Hampshire.
+
+Ouvirei o sino da liberdade nas poderosas montanhas poderosas de Nova York.
+
+Ouvirei o sino da liberdade nos engrandecidos Alleghenies da Pennsylvania.
+
+Ouvirei o sino da liberdade nas montanhas cobertas de neve Rockies do Colorado.
+
+Ouvirei o sino da liberdade nas ladeiras curvas da Califórnia.
+
+Mas não é só isso. Ouvirei o sino da liberdade na Montanha de Pedra da Geórgia.
+
+Ouvirei o sino da liberdade na Montanha de Vigilância do Tennessee.
+
+Ouvirei o sino da liberdade em todas as colinas do Mississipi.
+
+Em todas as montanhas, ouviu o sino da liberdade.
+
+E quando isto acontecer, quando nós permitimos o sino da liberdade soar, quando nós deixarmos ele soar em toda moradia e todo vilarejo, em todo estado e em toda cidade, nós poderemos acelerar aquele dia quando todas as crianças de Deus, homens pretos e homens brancos, judeus e gentios, protestantes e católicos, poderão unir mãos e cantar nas palavras do velho spiritual negro:
+  
+  'Livre afinal, livre afinal.
+
+Agradeço ao Deus todo-poderoso, nós somos livres afinal.'"
+
+
+
+
+VS <- VectorSource(Martin)
+corpus <- Corpus(VS)
+
+inspect(corpus)
+
+
+corpus <- tm_map(corpus, content_transformer(tolower))
+corpus <- tm_map(corpus, removePunctuation)
+corpus <- tm_map(corpus, stripWhitespace)
+corpus <- tm_map(corpus, removeNumbers)
+corpus <- tm_map(corpus, removeWords, stopwords("portuguese"))
+
+
+tdm <- as.matrix(TermDocumentMatrix(corpus))
+fre <- sort(rowSums(tdm),decreasing = T)
+aux <- subset(fre, fre>2)
+
+```
+
+```{r echo=TRUE}
+barplot(aux, las=2, col = rainbow(10),main = "Palavras mais usadas")
+```
+
+---
+
+### **Nuvem de palavras**
+
+*Gerar nuvem de palavras usando a função `wordcloud`*
+
+**Onde os parametros são:**
+
+*`Corpus` : O vetor de palavras a ser plotado*
+
+*`min.freq` : Palavras com frequencia menor que essas não serão mostradas*
+
+*`max.words` : Máximo de palavras a serem plotadas*
+
+*`random.order` : Plota as palavras em ordem randomica*
+
+    "false" significa que são plotadas as palavras mais frequentes.
+              
+*`rot.per` : Quantidade de rotação para aplicar a cada palavra(0-1).*
+
+*`colors` : Cores a serem usadas*
+
+```{r echo=TRUE}
+
+wordcloud(corpus, min.freq = 1,max.words = 60,random.order = F,
+          rot.per = 0.35, colors = brewer.pal(8,"Dark2"))
+
+```
+
+---
+
+## Brasil
+
+### **Instalando Pacotes necessários**
+
+*Pacote "tm" para processamento de textos: *
+
+
+`install.packages("tm")` 
+
+
+`library(tm)`
+
+---
+
+*Pacote "wordcloud" para a nuvem de palavras: *
+
+`install.packages("wordcloud")`
+
+`library(wordcloud)`
+
+---
+
+*Pacote "twitteR" para ser conectar a API do twitter: *
+
+`install.packages("twitteR")`
+
+`library(twitteR)`
+
+---
+
+*Pacote "syuzhet" para usar a função `get_nrc_sentiment`: *
+
+`install.packages("syuzhet")`
+
+`library(syuzhet)`
+
+---
+
+### **API do Twitter**
+
+Para usar a API deve-se criar uma conta no [Twitter](https://twitter.com/)
+
+Entrar no site [Developer Twitter](https://developer.twitter.com/en/apps) e criar um App.
+
+Entrar em *Details* do app criado e ir na aba *Keys and Tokens* para conseguir suas chaves de acesso.
+
+---
+
+
+### **Conectando a API**
+
+
+*Com suas chaves em mão, crie as variáveis referente a cada uma das chaves e atribua a elas o valores correspondentes: *
+
+
+`consumer_key <- 'API key'`
+
+`consumer_secret <- 'API secret key'`
+
+`access_token <- 'Access token'`
+
+`access_secret <- 'Access token secret'`
+
+---
+
+*Usar a função `setup_twitter_oauth` para se conectar com a API*
+
+`setup_twitter_oauth(consumer_key, consumer_secret, access_token, access_secret)`
+
+
+---
+
+
+### **Consultando o twitter**
+
+*Usando a função `searchTwitter` com os seguinte argumentos: `searchString = 'Brasil'` , ` n = 500` , `lang = 'pt'`. Onde "searchString" é a string a ser procurada, "n" é a quantidade de tweets que vai ser retornado e "lang" é a linguagem dos tweets*
+
+`tweets <- searchTwitter(searchString = 'Brasil', n = 500 , lang = 'pt')`
+
+---
+
+### **Converter os twittes para o formato de DF**
+
+*Converter os twittes usando a função `twListToDF` para o formato de data frame para melhor manuseio dos dados*
+
+`tweets <- twListToDF(tweets)`
+
+---
+
+### **Colapsando todos os twittes**
+
+*colapsando todos os twittes em um vetor de uma posição atravez da função `paste`*
+
+`tweets_t <- paste(tweets$text, collapse = " ")`
+
+---
+
+### **Coverter dados para o formato corpus.**
+
+*Para processar o texto usando o pacote tm, é necessário coverter esses dados em um formato chamado corpus, que pode ser processado pelo formato tm: *
+
+`tweets_t <- VectorSource(tweets_t)`
+
+`corpus <- Corpus(tweets_t)`
+
+---
+
+### **Fazer uma limpeza no texto.**
+
+*Colocar tudo em minusculo: *
+`corpus <- tm_map(corpus, content_transformer(tolower))`
+
+
+*Remover toda a pontuação: *
+`corpus <- tm_map(corpus, removePunctuation)`
+
+
+*Remover espaços extras em branco: *
+`corpus <- tm_map(corpus, stripWhitespace)`
+
+*Remover números: *
+`corpus <- tm_map(corpus, removeNumbers)`
+
+
+*Remover palavras ruido: *
+`corpus <- tm_map(corpus, removeWords, stopwords("portuguese"))`
+
+*Remover URL's: *
+
+`removeURL <- function(x) gsub("http[^[:space:]]*","",x)`
+
+`corpus <- tm_map(corpus,removeURL)`
+
+*remove qualquer coisa que não seja letras em português e espaço: *
+
+`removeNUmPunct <- function(x) gsub("[^[:alpha:][:space:]]*", "", x)`
+
+`corpus <- tm_map(corpus,content_transformer(removeNUmPunct))`
+
+---
+
+### **Criar matriz**
+
+*Tranformar o Corpus em Matriz: *
+
+`dtm <- TermDocumentMatrix(corpus)`
+
+`dtm <- as.matrix(dtm)`
+
+---
+
+### **Fornecer as sequências**
+
+*Fornecer as sequências ordenadas de cada palavra: *
+
+`fre <- sort(rowSums(tdm),decreasing = TRUE)`
+
+---
+
+### **Nuvem de palavras**
+
+*Gerar nuvem de palavras usando a função `wordcloud`*
+
+**Onde os parametros são:**
+
+*`Corpus` : O vetor de palavras a ser plotado*
+
+*`min.freq` : Palavras com frequencia menor que essas não serão mostradas*
+
+*`max.words` : Máximo de palavras a serem plotadas*
+
+*`random.order` : Plota as palavras em ordem randomica*
+
+    "false" significa que são plotadas as palavras mais frequentes.
+              
+*`rot.per` : Quantidade de rotação para aplicar a cada palavra(0-1).*
+
+*`colors` : Cores a serem usadas*
+
+*`scale` : Determina o intervalo do tamanho das palavras*
+
+```{r include=FALSE}
+
+library(twitteR)
+library(tm)
+library(wordcloud)
+
+
+consumer_key <- 'UHofBVArdC2gfi8somGlqLpEJ'
+
+consumer_secret <- 'jeGKAiSfkWP5uejxR2elF12qYtKoU5RdCDjMdcUE3vFLDw7R02'
+
+access_token <- '701928852105392130-CEzsgpEPL4HUEr6Xn69sFbwHvLG0CCS'
+
+access_secret <- 'eZXiGLQ4sC1KpgNSa0dB1Oy9ZZeskgvIqgjEg3oCxuZsH'
+
+
+setup_twitter_oauth(consumer_key, consumer_secret,
+                    access_token, access_secret)
+
+
+#consultando o twitter
+
+tweets <- searchTwitter("Brasil",n = 500, lang = 'pt')
+
+
+
+#convertendo os twittes para o formato de DF
+
+tweets <- twListToDF(tweets)
+
+
+#colapsando todos os twittes em um vetor de uma posição
+
+tweets_t <- paste(tweets$text, collapse = " ")
+
+#Criando o source e corpus
+
+tweets_t <- VectorSource(tweets_t)
+corpus <- Corpus(tweets_t)
+
+
+#limpeza
+
+corpus <- tm_map(corpus, content_transformer(tolower))
+corpus <- tm_map(corpus, removePunctuation)
+corpus <- tm_map(corpus, stripWhitespace)
+corpus <- tm_map(corpus, removeNumbers)
+corpus <- tm_map(corpus, removeWords, stopwords("portuguese"))
+
+
+
+inspect(corpus)
+
+
+#remover URL's
+
+removeURL <- function(x) gsub("http[^[:space:]]*","",x)
+corpus <- tm_map(corpus,removeURL)
+
+
+#remove qualquer coisa que n seja letras em português e espaço
+removeNUmPunct <- function(x) gsub("[^[:alpha:][:space:]]*", "", x)
+corpus <- tm_map(corpus,content_transformer(removeNUmPunct))
+
+
+#criar matriz
+
+dtm <- TermDocumentMatrix(corpus)
+dtm <- as.matrix(dtm)
+
+
+#fornecer a frequencia de cada palavra
+fre <- sort(rowSums(dtm), decreasing = TRUE)
+
+```
+
+```{r echo=TRUE}
+wordcloud(corpus, min.freq = 3,max.words = 100,random.order = F,
+          rot.per = 0.35, colors = brewer.pal(8,"Dark2"),scale = c(8,.4))
+```
+
+---
+
+### **Sentimentos**
+
+*Acessando apenas os textos: *
+`tweets <- tweets$text`
+
+*Pontuando os tweets usando a função `get_nrc_sentiment` do pacote "syuzhet": * `s <- get_nrc_sentiment(tweets)`
+          
+    Esse pacote quebra as emoções em 8 tipos diferentes(raiva, antecipação, nojo, medo, alegria, tristesa, surpresa,  confiança) e os sentimentos em dois tipos ( negativo, positivo).
+
+
+---
+
+### **Gráfico de barras Sentimentos**
+
+```{r include=FALSE}
+
+library(syuzhet)
+tweets <- tweets$text
+s <- get_nrc_sentiment(tweets)
+```
+
+*Plotar o gráfico de barras dos termos mais frequentes*
+
+```{r echo=TRUE}
+barplot(colSums(s), las = 2, col = rainbow(10),
+        ylab = "Contagem",main = "Sentimentos em relação aos Tweets sobre o Brasil")
+```
+
+---
+
+## Latex
+
+### **Equação 1**
+
+$x = (4+3i)(2+5i)$
+
+*Código: *`x = (4+3i)(2+5i)`
+
+---
+
+### **Equação 2**
+
+$F\:=\:G\frac{m_1\cdot m_2}{d^2}$
+
+*Código: *`F\:=\:G\frac{m_1\cdot m_2}{d^2}`
+
+---
+
+### **Equação 3**
+
+$\log x \cdot y=\:\log x\:+\:\log y$
+
+*Código: *`\log x \cdot y=\:\log x\:+\:\log y`
+
+---
+
+### **Equação 4**
+
+$X_{t+1} = kx_t(1 - x_t)$
+
+*Código: *`X_{t+1} = kx_t(1 - x_t)`
+
+---
+
+### **Equação 5**
+
+$\Delta \cdot E\:=\:-\frac{1}{c}\frac{\sigma \cdot H}{\sigma \cdot t}$
+
+*Código: *`\Delta \cdot E\:=\:-\frac{1}{c}\frac{\sigma \cdot H}{\sigma \cdot t}`
+
+---
+
+
+## Figuras e Tabelas
+
+```{r include=FALSE}
+library(DT)
+```
+
+
+### **Imagem 1**
+
+![](https://s3.amazonaws.com/uploads.hotmart.com/blog/2018/04/data-science-1.png)
+
+---
+
+### **Imagem 2**
+
+![](http://solutionmetrics.com.au/wp-content/uploads/2020/05/UseCases.png)
+
+---
+
+### **Tabela 1 (data frame : iris)**
+
+```{r echo=TRUE}
+datatable(iris)
+```
+
+---
+
+
+### **Tabela 2 (data frame : mtcars)**
+
+```{r echo=TRUE}
+datatable(mtcars)
+```
+
+---
+## Referências
+
+### **Citações**
+
+*"The economics of information security has recently become a thriving and fast-moving discipline. As distributed systems are assembled from machines belonging to principals with divergent interests, we find that incentives are becoming as important as technical design in achieving dependability".* **@anderson2006economics.**
+
+*"The concept of data science was originally proposed within the statistics and mathematics community where it essentially concerned data analysis. Data science today goes beyond specific areas like data mining and machine learning or whether it is the next generation of statistics."* **@cao2017data.**
+
+*"Artificial intelligence is a branch of computer science capable of analysing complex medical data. Their potential to exploit meaningful relationship with in a data set can be used in the diagnosis, treatment and predicting outcome in many clinical scenarios."* **@ramesh2004artificial.**
+
+
+*"The Web matures in its own unique way. From the static informative characteristics of Web 1.0, it progressed into the interactive experience Web 2.0 provides. The next phase of Web evolution, Web 3.0, is already in progress. Web 3.0 entails an integrated Web experience where the machine will be able to understand and catalogue data in a manner similar to "humans."* **@rudman2016defining.**
+
+*"The Metaverse is the post-reality universe, a perpetual and persistent multiuser environment merging physical reality with digital virtuality. It is based on the convergence of technologies that enable multisensory interactions with virtual environments, digital objects and people such as virtual reality (VR) and augmented reality (AR). Hence, the Metaverse is an interconnected web of social, networked immersive environments in persistent multiuser platforms."* **@mystakidis2022metaverse.**
+
+### **Referêcias**
