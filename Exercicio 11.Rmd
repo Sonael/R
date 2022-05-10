@@ -50,7 +50,7 @@ bibliography: C:\\Users\\sonae\\Documents\\R\\ref.bib
 
 ---
 
-### **Adquirindo o Discurso eu tenho um sonho**
+### **Adquirindo o Discurso "Eu tenho um sonho"**
 
 *Usar o link [Eu tenho um sonho](http://www.dhnet.org.br/desejos/sonhos/dream.htm) para obter o discurso e adcionar ele a variável `Martin`*.
 
@@ -145,7 +145,7 @@ Agradeço ao Deus todo-poderoso, nós somos livres afinal.'"
 
 ### **Fazer uma limpeza no texto.**
 
-*Colocar tudo em minusculo: *
+*Colocar tudo em minúsculo: *
 `corpus <- tm_map(corpus, content_transformer(tolower))`
 
 
@@ -380,7 +380,7 @@ Entrar em *Details* do app criado e ir na aba *Keys and Tokens* para conseguir s
 ### **Conectando a API**
 
 
-*Com suas chaves em mão, crie as variáveis referente a cada uma das chaves e atribua a elas o valores correspondentes: *
+*Com suas chaves em mão, crie as variáveis referente a cada uma das chaves e atribua a elas os valores correspondentes: *
 
 
 `consumer_key <- 'API key'`
@@ -437,7 +437,7 @@ Entrar em *Details* do app criado e ir na aba *Keys and Tokens* para conseguir s
 
 ### **Fazer uma limpeza no texto.**
 
-*Colocar tudo em minusculo: *
+*Colocar tudo em minúsculo: *
 `corpus <- tm_map(corpus, content_transformer(tolower))`
 
 
@@ -599,7 +599,7 @@ wordcloud(corpus, min.freq = 3,max.words = 100,random.order = F,
 
 *Pontuando os tweets usando a função `get_nrc_sentiment` do pacote "syuzhet": * `s <- get_nrc_sentiment(tweets)`
           
-    Esse pacote quebra as emoções em 8 tipos diferentes(raiva, antecipação, nojo, medo, alegria, tristesa, surpresa,  confiança) e os sentimentos em dois tipos ( negativo, positivo).
+    Esse pacote quebra as emoções em 8 tipos diferentes(raiva, antecipação, nojo, medo, alegria, tristeza, surpresa,  confiança) e os sentimentos em dois tipos ( negativo, positivo).
 
 
 ---
@@ -617,7 +617,7 @@ s <- get_nrc_sentiment(tweets)
 
 ```{r echo=TRUE}
 barplot(colSums(s), las = 2, col = rainbow(10),
-        ylab = "Contagem",main = "Sentimentos em relação aos Tweets sobre o Brasil")
+        ylab = "Contagem",main = "Sentimentos em relação aos tweets sobre o Brasil")
 ```
 
 ---
@@ -715,4 +715,4 @@ datatable(mtcars)
 
 *"The Metaverse is the post-reality universe, a perpetual and persistent multiuser environment merging physical reality with digital virtuality. It is based on the convergence of technologies that enable multisensory interactions with virtual environments, digital objects and people such as virtual reality (VR) and augmented reality (AR). Hence, the Metaverse is an interconnected web of social, networked immersive environments in persistent multiuser platforms."* **@mystakidis2022metaverse.**
 
-### **Referêcias**
+### **Referências**
