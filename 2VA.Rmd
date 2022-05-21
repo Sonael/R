@@ -7,7 +7,7 @@ output: html_document
 
 # **Sonael Neto - 2VA** {.tabset}
 
-**[Developer Twitter]()**
+**[Link para o código no Github](https://github.com/Sonael/R/blob/master/2VA.Rmd)**
 
 ## VADeaths
 
