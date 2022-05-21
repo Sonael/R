@@ -1,0 +1,203 @@
+---
+title: "2 VA"
+author: "Sonael"
+date: "20/05/2022"
+output: html_document
+---
+
+# **Sonael Neto - 2VA** {.tabset}
+
+**[Developer Twitter]()**
+
+## VADeaths
+
+### **Crie um gráfico de barras empilhadas desses dados, de modo que as barras estejam agrupadas (lado a lado) para cada categoria. Também defina uma cor diferente para cada grupo das categorias. Por fim, adicione título, legenda e nomes nos eixos.**
+
+```{r echo=FALSE}
+regions <- c("50-54","55-59", "60-64","65-69","70-79")
+colors <- c("yellow", "orange", "red","#CC0000","#660000")
+
+barplot(VADeaths, main = "Death rates",
+        xlab = "Population",
+        ylab = "Deaths",
+        col = colors,
+        beside = T)
+
+legend("topleft",pch= c(15,15,15), col = colors, legend = regions)
+```
+
+
+## ClassificaçãoDoença
+
+
+### **Crie um gráfico de pizza.Inclua a porcentagem de cada fatia, as cores das fatias e o nome do gráfico. Adicionalmente, use o comando legend() para incluir a legenda do gráfico.**
+
+```{r echo=FALSE}
+x <- c(9,8,3)
+
+pct <- round(x/sum(x)*100)
+
+
+lbls <- paste(pct,"%",sep = "")
+
+
+pie(x, lbls,
+    main = "Pacientes",
+    col = rainbow(3))
+
+legend("topright",
+       legend = c('moderado','leve','severo'),
+       cex = 0.8, fill = rainbow(length(x)))
+```
+
+## Twitters
+
+### **Crie uma nuvem de palavra a partir dos twitters sobre a hashtag "#COVID19". Também faça uma análise de sentimentos com relação a esses twitters coletados.**
+
+```{r include=FALSE}
+library(twitteR)
+library(tm)
+library(wordcloud)
+
+
+consumer_key <- 'UHofBVArdC2gfi8somGlqLpEJ'
+
+consumer_secret <- 'jeGKAiSfkWP5uejxR2elF12qYtKoU5RdCDjMdcUE3vFLDw7R02'
+
+access_token <- '701928852105392130-CEzsgpEPL4HUEr6Xn69sFbwHvLG0CCS'
+
+access_secret <- 'eZXiGLQ4sC1KpgNSa0dB1Oy9ZZeskgvIqgjEg3oCxuZsH'
+
+
+setup_twitter_oauth(consumer_key, consumer_secret,
+                    access_token, access_secret)
+
+
+#consultando o twitter
+
+tweets <- searchTwitter("#COVID19",n = 500, lang = 'pt')
+
+
+
+#convertendo os twittes para o formato de DF
+
+tweets <- twListToDF(tweets)
+
+
+#colapsando todos os twittes em um vetor de uma posição
+
+tweets_t <- paste(tweets$text, collapse = " ")
+
+#Criando o source e corpus
+
+tweets_t <- VectorSource(tweets_t)
+corpus <- Corpus(tweets_t)
+
+
+#limpeza
+
+corpus <- tm_map(corpus, content_transformer(tolower))
+corpus <- tm_map(corpus, removePunctuation)
+corpus <- tm_map(corpus, stripWhitespace)
+corpus <- tm_map(corpus, removeNumbers)
+corpus <- tm_map(corpus, removeWords, stopwords("portuguese"))
+
+
+
+inspect(corpus)
+
+
+#remover URL's
+
+removeURL <- function(x) gsub("http[^[:space:]]*","",x)
+corpus <- tm_map(corpus,removeURL)
+
+
+#remove qualquer coisa que n seja letras em português e espaço
+removeNUmPunct <- function(x) gsub("[^[:alpha:][:space:]]*", "", x)
+corpus <- tm_map(corpus,content_transformer(removeNUmPunct))
+
+
+#criar matriz
+
+dtm <- TermDocumentMatrix(corpus)
+dtm <- as.matrix(dtm)
+
+
+#fornecer a frequencia de cada palavra
+fre <- sort(rowSums(dtm), decreasing = TRUE)
+```
+
+---
+
+### **Nuvem de palavras**
+
+```{r echo=FALSE}
+wordcloud(corpus, min.freq = 3,max.words = 100,random.order = F,
+          rot.per = 0.35, colors = brewer.pal(8,"Dark2"),scale = c(8,.4))
+```
+
+### **Sentimentos**
+
+```{r include=FALSE}
+library(syuzhet)
+tweets <- tweets$text
+s <- get_nrc_sentiment(tweets)
+```
+
+```{r echo=FALSE}
+barplot(colSums(s), las = 2, col = rainbow(10),
+        ylab = "Contagem",main = "Sentimentos em relação aos Tweets sobre a #COVID19")
+```
+
+## Teorema
+
+```{r include=FALSE}
+flu <- read.csv2('flu.csv')
+```
+
+**lendo os dados do arquivo: **
+`flu <- read.csv2('flu.csv')`
+
+### **Mostre o histograma e a curva de densidade do conjunto de dados "flu"**
+
+```{r echo=FALSE}
+hist(flu$age,col="grey",
+     probability = T, main = 'Histogram of Flu',
+     xlab = 'Age')
+densityFlu <- density(flu$age)
+
+lines(densityFlu)
+```
+
+### **Crie 200 médias de amostras da população com tamanho n = 35.**
+
+```{r echo=TRUE}
+
+n <- 200
+
+tammedia <- 35
+
+xbar <- rep(NA,n)
+
+for(i in 1:n)
+{
+  MinhaAmostra <- sample(flu$age,size = tammedia)
+  xbar[i] <- mean(MinhaAmostra)
+}
+
+```
+
+### **Mostre o histograma com a curva de densidade para a médias das amostras.**
+
+
+```{r echo=FALSE}
+hist(xbar,col="grey",
+     probability = T, main = 'Histogram of Flu',
+     xlab = 'Age')
+densityFlu <- density(xbar)
+
+lines(densityFlu)
+```
+
+

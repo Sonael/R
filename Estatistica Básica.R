@@ -152,15 +152,6 @@ n <- (qnorm(nc,lower.tail = F)^2*sd^2*N)/((erro^2*(N-1)))+(qnorm(nc,lower.tail =
 
 
 
-
-
-
-
-
-
-
-
-
 #*A ministro da educação está interessado em conhecer o gasto médio por 
 #*estudante nos restaurantes universitários. O ministro admite que a 
 #*despesa de um aluno possa variar entre R$ 10,00 e R$ 30,00. Ele desejam 
@@ -191,6 +182,5 @@ n <- (qnorm(nc,lower.tail = F)^2*sd^2*N)/((erro^2*(N-1)))+(qnorm(nc,lower.tail =
 #*probabilidade de um paciente permanecer no hospital por mais de trinta 
 #*dias ? Submeta a resposta em porcentagem com duas casas decimais. Por 
 #*exemplo: 0.9452899 -> 94.52%.
-
 
 pnorm(30,mean = 50, 10)
